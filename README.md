@@ -1,4 +1,4 @@
-#Gameboy Emulator by Rauny
+# Gameboy Emulator by Rauny
 
 This project is inspired by [Imran Nazar project](http://imrannazar.com/GameBoy-Emulation-in-JavaScript).
 Its intention is having a better understanding about emulation and basic programming concepts. 
