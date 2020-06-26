@@ -16,6 +16,27 @@ data class Registers(
     var sp: Int = 0 // Stack counter
 ) {
 
+    fun getBc() = b.shl(8) + c
+
+    fun setBc(bc: Int) {
+        b = bc.shr(8).and(0xFF)
+        c = bc.and(0xFF)
+    }
+
+    fun getDe() = d.shl(8) + e
+
+    fun setDe(de: Int) {
+        d = de.shr(8).and(0xFF)
+        e = de.and(0xFF)
+    }
+
+    fun hl() = h.shl(8) + l
+
+    fun setHl(hl: Int) {
+        h = hl.shr(8).and(0xFF)
+        l = hl.and(0xFF)
+    }
+
     fun setFlags(value: Int, subtraction: Boolean = false) {
         f = 0
         if (value == 0) {
@@ -28,6 +49,11 @@ data class Registers(
     }
 }
 
+data class Clock(
+    var cycle: Int = 0,
+    var timing: Int = 0
+)
+
 interface Processor : Attachable {
 
     fun execute()
@@ -37,7 +63,7 @@ class GameBoyZ80Processor : Processor {
 
     private val registers = Registers()
 
-    private var clock = 0
+    private var clock = Clock()
 
     private lateinit var bus: Bus
 
@@ -49,7 +75,7 @@ class GameBoyZ80Processor : Processor {
         while (true) {
             val instruction = bus.read(registers.pc++)
             registers.pc = registers.pc.and(0xFFFF)
-            clock += OpCodes[instruction].run(bus, registers)
+            clock.cycle += OpCodes[instruction].run(bus, registers)
         }
     }
 }

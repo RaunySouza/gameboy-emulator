@@ -12,25 +12,14 @@ class Nop : Instruction {
     override fun run(bus: Bus, registers: Registers): Int = 1
 }
 
-class LdBcNn : Instruction {
-
-    override fun run(bus: Bus, registers: Registers): Int {
-        registers.b = bus.read(registers.pc++)
-        registers.c = bus.read(registers.pc++)
-        return 3
-    }
-}
-
-class LdBcA : Instruction {
-
-    override fun run(bus: Bus, registers: Registers): Int {
-        val b = registers.b
-        val c = registers.c
-        val address = b.shl(8).or(c)
-        bus.write(address, registers.a)
-        return 2
-    }
-}
+//class LdBcNn : Instruction {
+//
+//    override fun run(bus: Bus, registers: Registers): Int {
+//        registers.b = bus.read(registers.pc++)
+//        registers.c = bus.read(registers.pc++)
+//        return 3
+//    }
+//}
 
 class IncBc : Instruction {
 
@@ -55,14 +44,6 @@ class DecB : Instruction {
         registers.b = registers.b.dec().and(0xFF)
         registers.setFlags(registers.b, true)
         return 1
-    }
-}
-
-class LdBN : Instruction {
-
-    override fun run(bus: Bus, registers: Registers): Int {
-        registers.b = bus.read(registers.pc++)
-        return 2
     }
 }
 
@@ -103,13 +84,13 @@ class AddHlBc : Instruction {
     }
 }
 
-class LdABC : Instruction {
-
-    override fun run(bus: Bus, registers: Registers): Int {
-        registers.a = bus.read(registers.b.shl(8) + registers.c)
-        return 2
-    }
-}
+//class LdABC : Instruction {
+//
+//    override fun run(bus: Bus, registers: Registers): Int {
+//        registers.a = bus.read(registers.b.shl(8) + registers.c)
+//        return 2
+//    }
+//}
 
 class DecBC : Instruction {
 
