@@ -74,3 +74,78 @@ class AddHlA : Instruction by AddNnA({ getHl() })
  * OP - C6
  */
 class AddPcA : Instruction by AddNnA({ pc++ })
+
+/**
+ * Add n + Carry flag to A.
+ */
+class AdcNA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a += supplier(registers)
+        registers.a += if (registers.f and 0x10 == 0) 0 else 1
+        registers.setFlags(registers.a)
+        return 4
+    }
+}
+
+/**
+ * OP - 8F
+ */
+class AdcAA : Instruction by AdcNA({ a })
+
+/**
+ * OP - 88
+ */
+class AdcBA : Instruction by AdcNA({ b })
+
+/**
+ * OP - 89
+ */
+class AdcCA : Instruction by AdcNA({ c })
+
+/**
+ * OP - 8A
+ */
+class AdcDA : Instruction by AdcNA({ d })
+
+/**
+ * OP - 8B
+ */
+class AdcEA : Instruction by AdcNA({ e })
+
+/**
+ * OP - 8C
+ */
+class AdcHA : Instruction by AdcNA({ h })
+
+/**
+ * OP - 8D
+ */
+class AdcLA : Instruction by AdcNA({ l })
+
+/**
+ * Add nn to A with carry
+ */
+class AdcNnA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a += bus.read(supplier(registers))
+        registers.a += if (registers.f and 0x10 == 0) 0 else 1
+        registers.setFlags(registers.a)
+        return 8
+    }
+}
+
+/**
+ * OP - 8E
+ */
+class AdcHlA : Instruction by AdcNnA({ getHl() })
+
+/**
+ * OP - CE
+ */
+class AdcPcA : Instruction by AdcNnA({ pc++ })
