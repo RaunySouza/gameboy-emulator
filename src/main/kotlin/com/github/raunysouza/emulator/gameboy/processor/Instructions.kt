@@ -12,15 +12,6 @@ class Nop : Instruction {
     override fun run(bus: Bus, registers: Registers): Int = 1
 }
 
-//class LdBcNn : Instruction {
-//
-//    override fun run(bus: Bus, registers: Registers): Int {
-//        registers.b = bus.read(registers.pc++)
-//        registers.c = bus.read(registers.pc++)
-//        return 3
-//    }
-//}
-
 class IncBc : Instruction {
 
     override fun run(bus: Bus, registers: Registers): Int {
@@ -58,16 +49,6 @@ class RlcA : Instruction {
     }
 }
 
-//XXX Not sure if it is the correct implementation
-class LdNnSp : Instruction {
-
-    override fun run(bus: Bus, registers: Registers): Int {
-        bus.write(registers.pc++, registers.sp.and(0xFF))
-        bus.write(registers.pc++, registers.sp.shr(8))
-        return 3
-    }
-}
-
 class AddHlBc : Instruction {
 
     override fun run(bus: Bus, registers: Registers): Int {
@@ -83,14 +64,6 @@ class AddHlBc : Instruction {
         return 3
     }
 }
-
-//class LdABC : Instruction {
-//
-//    override fun run(bus: Bus, registers: Registers): Int {
-//        registers.a = bus.read(registers.b.shl(8) + registers.c)
-//        return 2
-//    }
-//}
 
 class DecBC : Instruction {
 

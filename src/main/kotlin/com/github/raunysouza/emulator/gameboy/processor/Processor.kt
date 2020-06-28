@@ -30,7 +30,7 @@ data class Registers(
         e = de.and(0xFF)
     }
 
-    fun hl() = h.shl(8) + l
+    fun getHl() = h.shl(8) + l
 
     fun setHl(hl: Int) {
         h = hl.shr(8).and(0xFF)

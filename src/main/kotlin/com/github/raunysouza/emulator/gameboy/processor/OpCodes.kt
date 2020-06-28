@@ -4,7 +4,7 @@ object OpCodes {
 
     private val instructions: Array<Instruction> = arrayOf(
         // 0
-        Nop(), LoadBcNn(), LoadBcA(), IncBc(), IncB(), DecB(), LoadBN(), RlcA(), LdNnSp(), AddHlBc(), LoadABc(), Nop(), Nop(), Nop(), LoadCN(), Nop(),
+        Nop(), LoadBcNn(), LoadBcA(), IncBc(), IncB(), DecB(), LoadBN(), RlcA(), LoadSpNn(), AddHlBc(), LoadABc(), Nop(), Nop(), Nop(), LoadCN(), Nop(),
         // 1
         Nop(), LoadDeNn(), LoadDeA(), Nop(), Nop(), Nop(), LoadDN(), Nop(), Nop(), Nop(), LoadADe(), Nop(), Nop(), Nop(), LoadEN(), Nop(),
         // 2
@@ -28,13 +28,13 @@ object OpCodes {
         // B
         Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // C
-        Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        Nop(), PopBC(), Nop(), Nop(), Nop(), PushBC(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // D
-        Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        Nop(), PopDE(), Nop(), Nop(), Nop(), PushDE(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // E
-        LoadAHn(), Nop(), LoadNcA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), LoadANn(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        LoadAHn(), PopHL(), LoadNcA(), Nop(), Nop(), PushHL(), Nop(), Nop(), Nop(), Nop(), LoadANn(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // F
-        LoadHnA(), Nop(), LoadANc(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), LoadHlSp(), LoadNnA(), Nop(), Nop(), Nop(), Nop(), Nop()
+        LoadHnA(), PopAF(), LoadANc(), Nop(), Nop(), PushAF(), Nop(), Nop(), LoadSpnHl(), LoadHlSp(), LoadNnA(), Nop(), Nop(), Nop(), Nop(), Nop()
     )
 
     operator fun get(code: Int): Instruction {
