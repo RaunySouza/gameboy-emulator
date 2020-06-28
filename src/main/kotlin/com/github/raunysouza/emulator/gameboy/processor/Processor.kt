@@ -37,7 +37,7 @@ data class Registers(
         l = hl and 0xFF
     }
 
-    fun setFlags(value: Int, subtraction: Boolean = false) {
+    fun setFlags(value: Int, subtraction: Boolean = false, carry: CarryFlagType = CarryFlagType.NOP) {
         f = 0
         if (value == 0) {
             f = f or 0x80
@@ -47,10 +47,27 @@ data class Registers(
             f = f or 0x40
         }
 
-        if (value > 0xFF) {
-            f = f or 0x10
-        }
+        f = carry.operation(value, f)
     }
+}
+
+enum class CarryFlagType(
+    val operation: (Int, Int) -> Int
+) {
+    ADD({ v, f ->
+        if (v > 0xFF) {
+            f or 0x10
+        } else {
+            f
+        }
+    }), SUB({ v, f ->
+        if (v < 0) {
+            f or 0x10
+        } else {
+            f
+        }
+    }),
+    NOP({ _, f -> f });
 }
 
 data class Clock(

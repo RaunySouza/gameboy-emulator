@@ -60,7 +60,7 @@ class AddNnA(
 ) : Instruction {
     override fun run(bus: Bus, registers: Registers): Int {
         registers.a += bus.read(supplier(registers))
-        registers.setFlags(registers.a)
+        registers.setFlags(registers.a, carry = CarryFlagType.ADD)
         return 8
     }
 }
@@ -85,7 +85,7 @@ class AdcNA(
     override fun run(bus: Bus, registers: Registers): Int {
         registers.a += supplier(registers)
         registers.a += if (registers.f and 0x10 == 0) 0 else 1
-        registers.setFlags(registers.a)
+        registers.setFlags(registers.a, carry = CarryFlagType.ADD)
         return 4
     }
 }
@@ -135,7 +135,7 @@ class AdcNnA(
     override fun run(bus: Bus, registers: Registers): Int {
         registers.a += bus.read(supplier(registers))
         registers.a += if (registers.f and 0x10 == 0) 0 else 1
-        registers.setFlags(registers.a)
+        registers.setFlags(registers.a, carry = CarryFlagType.ADD)
         return 8
     }
 }
