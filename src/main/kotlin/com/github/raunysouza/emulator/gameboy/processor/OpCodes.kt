@@ -20,7 +20,7 @@ object OpCodes {
         // 7
         LoadHlB(), LoadHlC(), LoadHlD(), LoadHlE(), LoadHlH(), LoadHlL(), Nop(), LoadHlA(), LoadAB(), LoadAC(), LoadAD(), LoadAE(), LoadAH(), LoadAL(), LoadAHl(), LoadAA(),
         // 8
-        Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        AddBA(), AddCA(), AddDA(), AddEA(), AddHA(), AddLA(), AddHlA(), AddAA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // 9
         Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // A
@@ -28,7 +28,7 @@ object OpCodes {
         // B
         Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // C
-        Nop(), PopBC(), Nop(), Nop(), Nop(), PushBC(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        Nop(), PopBC(), Nop(), Nop(), Nop(), PushBC(), AddPcA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // D
         Nop(), PopDE(), Nop(), Nop(), Nop(), PushDE(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // E

@@ -19,32 +19,36 @@ data class Registers(
     fun getBc() = b.shl(8) + c
 
     fun setBc(bc: Int) {
-        b = bc.shr(8).and(0xFF)
-        c = bc.and(0xFF)
+        b = bc shr 8 and 0xFF
+        c = bc and 0xFF
     }
 
     fun getDe() = d.shl(8) + e
 
     fun setDe(de: Int) {
-        d = de.shr(8).and(0xFF)
-        e = de.and(0xFF)
+        d = de shr 8 and 0xFF
+        e = de and 0xFF
     }
 
     fun getHl() = h.shl(8) + l
 
     fun setHl(hl: Int) {
-        h = hl.shr(8).and(0xFF)
-        l = hl.and(0xFF)
+        h = hl shr 8 and 0xFF
+        l = hl and 0xFF
     }
 
     fun setFlags(value: Int, subtraction: Boolean = false) {
         f = 0
         if (value == 0) {
-            f = f.or(0x80)
+            f = f or 0x80
         }
 
         if (subtraction) {
-            f = f.or(0x40)
+            f = f or 0x40
+        }
+
+        if (value > 0xFF) {
+            f = f or 0x10
         }
     }
 }
