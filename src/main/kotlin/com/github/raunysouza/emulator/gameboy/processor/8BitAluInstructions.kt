@@ -578,7 +578,7 @@ class CpNnA(
     override fun run(bus: Bus, registers: Registers): Int {
         val result = registers.a - bus.read(supplier(registers))
         registers.setFlags(result, subtraction = true, carry = CarryFlagType.SUB)
-        return 4
+        return 8
     }
 }
 
