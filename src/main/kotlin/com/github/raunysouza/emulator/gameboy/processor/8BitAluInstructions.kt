@@ -421,7 +421,7 @@ class OrHA : Instruction by OrNA({ h })
 class OrLA : Instruction by OrNA({ l })
 
 /**
- * Logically AND n address with A, result in A
+ * Logically OR n address with A, result in A
  */
 class OrNnA(
     val supplier: Registers.() -> Int
@@ -443,3 +443,76 @@ class OrHlA : Instruction by OrNnA({ getHl() })
  * OP - F6
  */
 class OrPcA : Instruction by OrNnA({ pc++ })
+
+/**
+ * Logically exclusive OR n with A, result in A
+ */
+class XorNA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a = registers.a xor supplier(registers)
+        registers.a = registers.a and 0xFF
+        registers.setFlags(registers.a)
+        return 4
+    }
+}
+
+/**
+ * OP - AF
+ */
+class XorAA : Instruction by XorNA({ a })
+
+/**
+ * OP - A8
+ */
+class XorBA : Instruction by XorNA({ b })
+
+/**
+ * OP - A9
+ */
+class XorCA : Instruction by XorNA({ c })
+
+/**
+ * OP - AA
+ */
+class XorDA : Instruction by XorNA({ d })
+
+/**
+ * OP - AB
+ */
+class XorEA : Instruction by XorNA({ e })
+
+/**
+ * OP - AC
+ */
+class XorHA : Instruction by XorNA({ h })
+
+/**
+ * OP - AD
+ */
+class XorLA : Instruction by XorNA({ l })
+
+/**
+ * Logically exclusive OR n address with A, result in A
+ */
+class XorNnA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a = registers.a xor bus.read(supplier(registers))
+        registers.a = registers.a and 0xFF
+        registers.setFlags(registers.a)
+        return 8
+    }
+}
+
+/**
+ * OP - AE
+ */
+class XorHlA : Instruction by XorNnA({ getHl() })
+
+/**
+ * OP - EE
+ */
+class XorPcA : Instruction by XorNnA({ pc++ })

@@ -24,7 +24,7 @@ object OpCodes {
         // 9
         SubBA(), SubCA(), SubDA(), SubEA(), SubHA(), SubLA(), SubHlA(), SubAA(), SubcBA(), SubcCA(), SubcDA(), SubcEA(), SubcHA(), SubcLA(), SubcHlA(), SubcAA(),
         // A
-        AndBA(), AndCA(), AndDA(), AndEA(), AndHA(), AndLA(), AndHlA(), AndAA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        AndBA(), AndCA(), AndDA(), AndEA(), AndHA(), AndLA(), AndHlA(), AndAA(), XorBA(), XorCA(), XorDA(), XorEA(), XorHA(), XorLA(), XorHlA(), XorAA(),
         // B
         OrBA(), OrCA(), OrDA(), OrEA(), OrHA(), OrLA(), OrHlA(), OrAA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // C
@@ -32,7 +32,7 @@ object OpCodes {
         // D
         Nop(), PopDE(), Nop(), Nop(), Nop(), PushDE(), SubPcA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), SubcPcA(), Nop(),
         // E
-        LoadAHn(), PopHL(), LoadNcA(), Nop(), Nop(), PushHL(), AndPcA(), Nop(), Nop(), Nop(), LoadANn(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        LoadAHn(), PopHL(), LoadNcA(), Nop(), Nop(), PushHL(), AndPcA(), Nop(), Nop(), Nop(), LoadANn(), Nop(), Nop(), Nop(), XorPcA(), Nop(),
         // F
         LoadHnA(), PopAF(), LoadANc(), Nop(), Nop(), PushAF(), OrPcA(), Nop(), LoadSpnHl(), LoadHlSp(), LoadNnA(), Nop(), Nop(), Nop(), Nop(), Nop()
     )
