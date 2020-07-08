@@ -370,3 +370,76 @@ class AndHlA : Instruction by AndNnA({ getHl() })
  * OP - E6
  */
 class AndPcA : Instruction by AndNnA({ pc++ })
+
+/**
+ * Logically OR n with A, result in A
+ */
+class OrNA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a = registers.a or supplier(registers)
+        registers.a = registers.a and 0xFF
+        registers.setFlags(registers.a)
+        return 4
+    }
+}
+
+/**
+ * OP - B7
+ */
+class OrAA : Instruction by OrNA({ a })
+
+/**
+ * OP - B0
+ */
+class OrBA : Instruction by OrNA({ b })
+
+/**
+ * OP - B1
+ */
+class OrCA : Instruction by OrNA({ c })
+
+/**
+ * OP - B2
+ */
+class OrDA : Instruction by OrNA({ d })
+
+/**
+ * OP - B3
+ */
+class OrEA : Instruction by OrNA({ e })
+
+/**
+ * OP - B4
+ */
+class OrHA : Instruction by OrNA({ h })
+
+/**
+ * OP - B5
+ */
+class OrLA : Instruction by OrNA({ l })
+
+/**
+ * Logically AND n address with A, result in A
+ */
+class OrNnA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a = registers.a or bus.read(supplier(registers))
+        registers.a = registers.a and 0xFF
+        registers.setFlags(registers.a)
+        return 8
+    }
+}
+
+/**
+ * OP - B6
+ */
+class OrHlA : Instruction by OrNnA({ getHl() })
+
+/**
+ * OP - F6
+ */
+class OrPcA : Instruction by OrNnA({ pc++ })
