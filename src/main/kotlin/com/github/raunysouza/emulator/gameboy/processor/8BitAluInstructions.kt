@@ -11,7 +11,7 @@ class AddNA(
 
     override fun run(bus: Bus, registers: Registers): Int {
         registers.a += supplier(registers)
-        registers.setFlags(registers.a)
+        registers.setFlags(registers.a, carry = CarryFlagType.ADD)
         registers.a = registers.a and 0xFF
         return 4
     }
@@ -149,3 +149,224 @@ class AdcHlA : Instruction by AdcNnA({ getHl() })
  * OP - CE
  */
 class AdcPcA : Instruction by AdcNnA({ pc++ })
+
+/**
+ * Subtract n from A
+ */
+class SubNA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a -= supplier(registers)
+        registers.setFlags(registers.a, subtraction = true, carry = CarryFlagType.SUB)
+        registers.a = registers.a and 0xFF
+        return 4
+    }
+}
+
+/**
+ * OP - 97
+ */
+class SubAA : Instruction by SubNA({ a })
+
+/**
+ * OP - 90
+ */
+class SubBA : Instruction by SubNA({ b })
+
+/**
+ * OP - 91
+ */
+class SubCA : Instruction by SubNA({ c })
+
+/**
+ * OP - 92
+ */
+class SubDA : Instruction by SubNA({ d })
+
+/**
+ * OP - 93
+ */
+class SubEA : Instruction by SubNA({ e })
+
+/**
+ * OP - 94
+ */
+class SubHA : Instruction by SubNA({ h })
+
+/**
+ * OP - 95
+ */
+class SubLA : Instruction by SubNA({ l })
+
+/**
+ * Subtract n address from A
+ */
+class SubNnA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a -= bus.read(supplier(registers))
+        registers.setFlags(registers.a, carry = CarryFlagType.SUB)
+        return 8
+    }
+}
+
+/**
+ * OP - 96
+ */
+class SubHlA : Instruction by SubNnA({ getHl() })
+
+/**
+ * OP - D6
+ */
+class SubPcA : Instruction by SubNnA({ pc++ })
+
+/**
+ * Subtract n + Carry flag from A.
+ */
+class SubcNA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a -= supplier(registers)
+        registers.a -= if (registers.f and 0x10 == 0) 0 else 1
+        registers.setFlags(registers.a, carry = CarryFlagType.SUB)
+        return 4
+    }
+}
+
+/**
+ * OP - 9F
+ */
+class SubcAA : Instruction by SubcNA({ a })
+
+/**
+ * OP - 98
+ */
+class SubcBA : Instruction by SubcNA({ b })
+
+/**
+ * OP - 99
+ */
+class SubcCA : Instruction by SubcNA({ c })
+
+/**
+ * OP - 9A
+ */
+class SubcDA : Instruction by SubcNA({ d })
+
+/**
+ * OP - 9B
+ */
+class SubcEA : Instruction by SubcNA({ e })
+
+/**
+ * OP - 9C
+ */
+class SubcHA : Instruction by SubcNA({ h })
+
+/**
+ * OP - 9D
+ */
+class SubcLA : Instruction by SubcNA({ l })
+
+/**
+ * Subtract nn from A with carry
+ */
+class SubcNnA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a -= bus.read(supplier(registers))
+        registers.a -= if (registers.f and 0x10 == 0) 0 else 1
+        registers.setFlags(registers.a, carry = CarryFlagType.SUB)
+        return 8
+    }
+}
+
+/**
+ * OP - 9E
+ */
+class SubcHlA : Instruction by SubcNnA({ getHl() })
+
+/**
+ * OP - DE
+ */
+class SubcPcA : Instruction by SubcNnA({ pc++ })
+
+/**
+ * Logically AND n with A, result in A
+ */
+class AndNA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a = registers.a and supplier(registers)
+        registers.a = registers.a and 0xFF
+        registers.setFlags(registers.a)
+        return 4
+    }
+}
+
+/**
+ * OP - A7
+ */
+class AndAA : Instruction by AndNA({ a })
+
+/**
+ * OP - A0
+ */
+class AndBA : Instruction by AndNA({ b })
+
+/**
+ * OP - A1
+ */
+class AndCA : Instruction by AndNA({ c })
+
+/**
+ * OP - A2
+ */
+class AndDA : Instruction by AndNA({ d })
+
+/**
+ * OP - A3
+ */
+class AndEA : Instruction by AndNA({ e })
+
+/**
+ * OP - A4
+ */
+class AndHA : Instruction by AndNA({ h })
+
+/**
+ * OP - A5
+ */
+class AndLA : Instruction by AndNA({ l })
+
+/**
+ * Logically AND n address with A, result in A
+ */
+class AndNnA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+    override fun run(bus: Bus, registers: Registers): Int {
+        registers.a = registers.a and bus.read(supplier(registers))
+        registers.a = registers.a and 0xFF
+        registers.setFlags(registers.a)
+        return 8
+    }
+}
+
+/**
+ * OP - A6
+ */
+class AndHlA : Instruction by AndNnA({ getHl() })
+
+/**
+ * OP - E6
+ */
+class AndPcA : Instruction by AndNnA({ pc++ })

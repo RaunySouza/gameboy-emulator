@@ -22,17 +22,17 @@ object OpCodes {
         // 8
         AddBA(), AddCA(), AddDA(), AddEA(), AddHA(), AddLA(), AddHlA(), AddAA(), AdcBA(), AdcCA(), AdcDA(), AdcEA(), AdcHA(), AdcLA(), AdcHlA(), AdcAA(),
         // 9
-        Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        SubBA(), SubCA(), SubDA(), SubEA(), SubHA(), SubLA(), SubHlA(), SubAA(), SubcBA(), SubcCA(), SubcDA(), SubcEA(), SubcHA(), SubcLA(), SubcHlA(), SubcAA(),
         // A
-        Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        AndBA(), AndCA(), AndDA(), AndEA(), AndHA(), AndLA(), AndHlA(), AndAA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // B
         Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // C
         Nop(), PopBC(), Nop(), Nop(), Nop(), PushBC(), AddPcA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), AdcPcA(), Nop(),
         // D
-        Nop(), PopDE(), Nop(), Nop(), Nop(), PushDE(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        Nop(), PopDE(), Nop(), Nop(), Nop(), PushDE(), SubPcA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), SubcPcA(), Nop(),
         // E
-        LoadAHn(), PopHL(), LoadNcA(), Nop(), Nop(), PushHL(), Nop(), Nop(), Nop(), Nop(), LoadANn(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        LoadAHn(), PopHL(), LoadNcA(), Nop(), Nop(), PushHL(), AndPcA(), Nop(), Nop(), Nop(), LoadANn(), Nop(), Nop(), Nop(), Nop(), Nop(),
         // F
         LoadHnA(), PopAF(), LoadANc(), Nop(), Nop(), PushAF(), Nop(), Nop(), LoadSpnHl(), LoadHlSp(), LoadNnA(), Nop(), Nop(), Nop(), Nop(), Nop()
     )
