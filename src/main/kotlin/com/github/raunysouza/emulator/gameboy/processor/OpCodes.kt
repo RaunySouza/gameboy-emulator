@@ -26,7 +26,7 @@ object OpCodes {
         // A
         AndBA(), AndCA(), AndDA(), AndEA(), AndHA(), AndLA(), AndHlA(), AndAA(), XorBA(), XorCA(), XorDA(), XorEA(), XorHA(), XorLA(), XorHlA(), XorAA(),
         // B
-        OrBA(), OrCA(), OrDA(), OrEA(), OrHA(), OrLA(), OrHlA(), OrAA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(),
+        OrBA(), OrCA(), OrDA(), OrEA(), OrHA(), OrLA(), OrHlA(), OrAA(), CpBA(), CpCA(), CpDA(), CpEA(), CpHA(), CpLA(), CpHlA(), CpAA(),
         // C
         Nop(), PopBC(), Nop(), Nop(), Nop(), PushBC(), AddPcA(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), AdcPcA(), Nop(),
         // D
@@ -34,7 +34,7 @@ object OpCodes {
         // E
         LoadAHn(), PopHL(), LoadNcA(), Nop(), Nop(), PushHL(), AndPcA(), Nop(), Nop(), Nop(), LoadANn(), Nop(), Nop(), Nop(), XorPcA(), Nop(),
         // F
-        LoadHnA(), PopAF(), LoadANc(), Nop(), Nop(), PushAF(), OrPcA(), Nop(), LoadSpnHl(), LoadHlSp(), LoadNnA(), Nop(), Nop(), Nop(), Nop(), Nop()
+        LoadHnA(), PopAF(), LoadANc(), Nop(), Nop(), PushAF(), OrPcA(), Nop(), LoadSpnHl(), LoadHlSp(), LoadNnA(), Nop(), Nop(), Nop(), CpPcA(), Nop()
     )
 
     operator fun get(code: Int): Instruction {

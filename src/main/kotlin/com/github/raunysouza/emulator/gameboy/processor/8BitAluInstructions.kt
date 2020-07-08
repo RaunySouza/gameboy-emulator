@@ -516,3 +516,78 @@ class XorHlA : Instruction by XorNnA({ getHl() })
  * OP - EE
  */
 class XorPcA : Instruction by XorNnA({ pc++ })
+
+/**
+ *  Compare A with n.
+ *  This is basically an A - n subtraction instruction but the results are thrown away.
+ */
+class CpNA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+
+    override fun run(bus: Bus, registers: Registers): Int {
+        val result = registers.a - supplier(registers)
+        registers.setFlags(result, subtraction = true, carry = CarryFlagType.SUB)
+        return 4
+    }
+}
+
+/**
+ * OP - BF
+ */
+class CpAA : Instruction by CpNA({ a })
+
+/**
+ * OP - B8
+ */
+class CpBA : Instruction by CpNA({ b })
+
+/**
+ * OP - B9
+ */
+class CpCA : Instruction by CpNA({ c })
+
+/**
+ * OP - BA
+ */
+class CpDA : Instruction by CpNA({ d })
+
+/**
+ * OP - BB
+ */
+class CpEA : Instruction by CpNA({ e })
+
+/**
+ * OP - BC
+ */
+class CpHA : Instruction by CpNA({ h })
+
+/**
+ * OP - BD
+ */
+class CpLA : Instruction by CpNA({ l })
+
+/**
+ *  Compare A with n.
+ *  This is basically an A - n address subtraction instruction but the results are thrown away.
+ */
+class CpNnA(
+    val supplier: Registers.() -> Int
+) : Instruction {
+
+    override fun run(bus: Bus, registers: Registers): Int {
+        val result = registers.a - bus.read(supplier(registers))
+        registers.setFlags(result, subtraction = true, carry = CarryFlagType.SUB)
+        return 4
+    }
+}
+
+/**
+ * OP - BE
+ */
+class CpHlA : Instruction by CpNnA({ getHl() })
+
+/**
+ * OP - FE
+ */
+class CpPcA : Instruction by CpNnA({ pc++ })
